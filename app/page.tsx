@@ -78,12 +78,27 @@ export default function Home() {
           {files.length > 0 && (
             <div className="downloads">
               {files.map((file) => {
-                const localUrl = downloadUrl(file.base64);
+               onClick={(e) => {
+  if (!file.cdnUrl) {
+    e.currentTarget.href = downloadUrl(file.base64);
+  }
+}}
                 return (
-                  <a className="download" key={file.filename} href={file.cdnUrl || localUrl} download={file.filename} target={file.cdnUrl ? '_blank' : undefined}>
-                    {file.label}
-                    <span>{file.cdnUrl ? 'CDN link ready' : 'Direct PDF download'}</span>
-                  </a>
+                 <a
+  className="download"
+  key={file.filename}
+  href={file.cdnUrl || '#'}
+  download={file.filename}
+  target={file.cdnUrl ? '_blank' : undefined}
+  onClick={(e) => {
+    if (!file.cdnUrl) {
+      e.currentTarget.href = downloadUrl(file.base64);
+    }
+  }}
+>
+  {file.label}
+  <span>{file.cdnUrl ? 'CDN link ready' : 'Direct PDF download'}</span>
+</a>
                 );
               })}
             </div>
