@@ -4,7 +4,7 @@ import PDFDocument from 'pdfkit';
 import { put } from '@vercel/blob';
 
 export const runtime = 'nodejs';
-export const maxDuration = 60;
+export const maxDuration = 120;
 
 type NotesData = {
   studyNotes: { heading: string; points: string[] }[];
@@ -59,7 +59,7 @@ Title: ${title}
 Content: ${content.slice(0, 45000)}`;
 
   const response = await client.responses.create({
-    model: 'gpt-4.1-mini',
+  model: 'gpt-4o-mini',
     input: prompt,
     temperature: 0.35
   });
